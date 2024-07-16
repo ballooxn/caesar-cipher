@@ -1,23 +1,20 @@
-require "to_ascii"
+# frozen_string_literal: true
 
-def cipher(string,key)
-    array = []
-    if key > 26 then key %= 26 end
-    string.each_byte do |c|
-        if (c >= 65) && (c <= 90)
-            c += key
-            if c > 90 then c -= 26 end
-            array.push(c)
-        elsif (c >= 97) && (c <= 122)
-            c += key
-            if c > 122 then c -= 26 end
-            array.push(c)
-        else
-            array.push(c)
-        end
+def cipher(string, key)
+  array = []
+  key %= 26 if key > 26
+  string.each_byte do |c|
+    if (c >= 65) && (c <= 90)
+      c += key
+      c -= 26 if c > 90
+    elsif (c >= 97) && (c <= 122)
+      c += key
+      c -= 26 if c > 122
     end
-    p key
-    return array.pack('c*')
+    array.push(c)
+  end
+  p key
+  array.pack('c*')
 end
 
-p cipher("What a string!", 31)
+p cipher('What a string!', 31)
