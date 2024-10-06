@@ -1,20 +1,23 @@
-# frozen_string_literal: true
+def caeser_cipher(string, shift)
+  arr = string.split('')
+  shift %= 26
 
-def cipher(string, key)
-  array = []
-  key %= 26 if key > 26
-  string.each_byte do |c|
-    if (c >= 65) && (c <= 90)
-      c += key
-      c -= 26 if c > 90
-    elsif (c >= 97) && (c <= 122)
-      c += key
-      c -= 26 if c > 122
-    end
-    array.push(c)
+  arr.map! do |char|
+    shift_char(char, shift)
   end
-  p key
-  array.pack('c*')
+
+  arr.join
 end
 
-p cipher('What a string!', 31)
+def shift_char(char, shift)
+  return char unless char.match?(/[a-zA-Z]/)
+
+  shifted = char.ord + shift
+
+  # wrap shifted number back to a if its past z
+  shifted -= 26 if (char.downcase == char && shifted > 122) || (char.upcase == char && shifted > 90)
+  # convert the ascii to character
+  shifted.chr
+end
+
+p caeser_cipher('What a string!', 31)
