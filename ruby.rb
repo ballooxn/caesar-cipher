@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 def caeser_cipher(string, shift)
-  arr = string.split('')
+  arr = string.chars
   shift %= 26
 
   arr.map! do |char|
