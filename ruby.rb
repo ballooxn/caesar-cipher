@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
 def caeser_cipher(string, shift)
-  arr = string.chars
-  shift %= 26
-
-  arr.map! do |char|
+  string.chars
+        .map do |char|
     shift_char(char, shift)
   end
-
-  arr.join
+  .join
 end
 
 def shift_char(char, shift)
   return char unless char.match?(/[a-zA-Z]/)
+
+  shift = (shift.abs % 26)
 
   shifted = char.ord + shift
 
@@ -22,4 +21,4 @@ def shift_char(char, shift)
   shifted.chr
 end
 
-p caeser_cipher('What a string!', 31)
+# p caeser_cipher('What a string!', 31)
